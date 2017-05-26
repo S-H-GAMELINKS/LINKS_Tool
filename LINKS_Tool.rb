@@ -11,7 +11,7 @@ flag = 0
 str = String.new
 
 #使用する機能の選択
-while flag == 0 && flag != 5
+while flag == 0
 
 	puts "使用する機能を選択してください"
 	puts "1: LINKS用タグ登録"
@@ -23,4 +23,6 @@ while flag == 0 && flag != 5
 	flag = gets.to_i
 end
 
-script_tag(flag, str)
+if flag != 5 then
+	script_tag(flag, str)
+end
