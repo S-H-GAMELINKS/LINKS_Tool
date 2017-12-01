@@ -1,49 +1,22 @@
 # encoding: Windows-31J
 
-#各種エンジン用タグ登録メソッド
-def script_tag(flag, str)
+#LINKS用タグ登録
+def LinksTag(output_filename, str)
+	#タグの登録(LINKS)
+	str.gsub!(/。/, "。P")
+	str.gsub!(/」/, "」P")
+	str.gsub!(/^$/, "R")
+	str.gsub!(/^/, "L")
+	str.gsub!(/LR/, "R")
 
-	#ファイル名用変数
-	input_filename = nil
-	output_filename = nil
-
-	#ファイルの指定ループ(Nscripter2)
-	while input_filename == nil && output_filename == nil || input_filename == "" && output_filename == ""
-
-		#変換したいファイル名の指定(Nscripter2)
-		print "タグを登録したいファイルを指定してください："
-		input_filename = gets.strip
-
-		#変換後のファイル名指定(Nscripter2)
-		print "タグ登録後のファイル名を入力してください:"
-		output_filename = gets.strip
+	#指定したファイル名で出力(LINKS)
+	File.open("#{output_filename}.txt", "w") do |file|
+		file.write str
 	end
+end
 
-	#指定したファイルの読込
-	text = open("#{input_filename}.txt", "r+")
-	str = text.read
-
-	#各種エンジン用タグ登録へ分岐
-	case flag
-
-	#LINKS用タグ登録
-	when 1
-
-		#タグの登録(LINKS)
-		str.gsub!(/。/, "。P")
-		str.gsub!(/」/, "」P")
-		str.gsub!(/^$/, "R")
-		str.gsub!(/^/, "L")
-		str.gsub!(/LR/, "R")
-
-		#指定したファイル名で出力(LINKS)
-		File.open("#{output_filename}.txt", "w") do |file|
-			file.write str
-		end
-
-	#ティラノスクリプト用タグ登録
-	when 2
-
+#ティラノスクリプト用タグ登録
+def TyranoTag(output_filename, str)
 		#タグの登録(ティラノスクリプト)
 		str.gsub!(/$/, "[p]")
 		str.gsub!(/。/, "。[l]")
@@ -54,10 +27,10 @@ def script_tag(flag, str)
 		File.open("#{output_filename}.ks", "w") do |file|
 			file.write str.encode("UTF-8")
 		end
+end
 
-	#吉里吉里2用タグ登録
-	when 3
-
+#吉里吉里用タグ登録
+def KirikiriTag(output_filename, str)
 		#タグの登録(吉里吉里Z)
 		str.gsub!(/$/, "[p]")
 		str.gsub!(/。/, "。[l]")
@@ -68,10 +41,10 @@ def script_tag(flag, str)
 		File.open("#{output_filename}.ks", "w") do |file|
 			file.write str.encode("UTF-8")
 		end
+end
 
-	#Nscripter2用タグ登録
-	when 4
-
+#Nscripter2用タグ登録
+def Nscripter2Tag(output_filename, str)
 		#タグの登録(Nscripter2)
 		str.gsub!(/。/, "。\\p")
 		str.gsub!(/」/, "」\\p")
@@ -83,5 +56,55 @@ def script_tag(flag, str)
 		File.open("#{output_filename}.txt", "w") do |file|
 			file.write str.encode("UTF-8")
 		end
+end
+
+def ScriptTagTask(input_filename, str, output_filename, flag)
+	#指定したファイルの読込
+	text = open("#{input_filename}.txt", "r+")
+	str = text.read
+
+	#各種エンジン用タグ登録へ分岐
+	case flag
+
+	#LINKS用タグ登録
+	when 1
+		LinksTag(output_filename, str)
+	#ティラノスクリプト用タグ登録
+	when 2
+		TyranoTag(output_filename, str)
+	#吉里吉里2用タグ登録
+	when 3
+		KirikiriTag(output_filename, str)
+	#Nscripter2用タグ登録
+	when 4
+		Nscripter2Tag(output_filename, str)
+	end
+end
+
+#各種エンジン用タグ登録メソッド
+def script_tag(flag, str)
+
+	#ファイル名用変数
+	input_filename = nil
+	output_filename = nil
+
+	#ファイルの指定ループ
+	while 1 
+
+		print "終了する場合は exit と入力してください\n"
+
+		#変換したいファイル名の指定(Nscripter2)
+		print "タグを登録したいファイルを指定してください："
+		input_filename = gets.strip
+
+		if input_filename == "exit" then
+			break
+		end
+
+		#変換後のファイル名指定(Nscripter2)
+		print "タグ登録後のファイル名を入力してください:"
+		output_filename = gets.strip
+
+		ScriptTagTask(input_filename, str, output_filename, flag)
 	end
 end
