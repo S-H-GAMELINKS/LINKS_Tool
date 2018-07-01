@@ -14,15 +14,15 @@ menu =["使用する機能を選択してください\n", "1: LINKS用タグ登録\n", "2:ティラノス
 		"3:吉里吉里2用タグ登録\n", "4:Nscripter2用タグ登録\n", "5:終了\n", "使用する機能は？："]
 
 #使用する機能の選択
-while flag == 0
+while flag != 5
 
 	menu.each do |menu|
 		puts menu
 	end
 
 	flag = gets.to_i
-end
 
-if flag != 5 then
-	script_tag(flag, str)
+	if flag != 5 then
+		script_tag(flag, str)
+	end
 end
