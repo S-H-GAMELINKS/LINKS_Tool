@@ -90,8 +90,7 @@ end
 def script_tag(flag, str)
 
 	#ファイル名用変数
-	input_filename = nil
-	output_filename = nil
+	input_filename, output_filename = nil, nil
 
 	#ファイルの指定ループ
 	loop do
