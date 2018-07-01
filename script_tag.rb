@@ -97,13 +97,14 @@ def script_tag(flag, str)
 		print "タグを登録したいファイルを指定してください："
 		input_filename = gets.strip
 
-		if input_filename == "exit" then
-			break
-		end
-
 		#変換後のファイル名指定(Nscripter2)
 		print "タグ登録後のファイル名を入力してください:"
 		output_filename = gets.strip
+
+		# exitが含まれていた場合ループを抜ける
+		if input_filename =~ /exit/ || output_filename =~ /exit/ then
+			break
+		end
 
 		ScriptTagTask(input_filename, str, output_filename, flag)
 	end
