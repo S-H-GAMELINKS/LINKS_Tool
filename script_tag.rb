@@ -89,7 +89,7 @@ def script_tag(flag, str)
 	output_filename = nil
 
 	#ファイルの指定ループ
-	while 1 
+	loop do
 
 		print "終了する場合は exit と入力してください\n"
 
