@@ -17,7 +17,7 @@ menu =["使用する機能を選択してください\n", "1: LINKS用タグ登録\n", "2:ティラノス
 while flag != 5
 
 	menu.each do |menu|
-		puts menu
+		print menu
 	end
 
 	flag = gets.to_i
