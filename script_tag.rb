@@ -81,6 +81,11 @@ def ScriptTagTask(input_filename, str, output_filename, flag)
 	end
 end
 
+def GetFilename(filename, text)
+	print text
+	filename = gets.strip
+end
+
 #各種エンジン用タグ登録メソッド
 def script_tag(flag, str)
 
@@ -93,13 +98,9 @@ def script_tag(flag, str)
 
 		print "終了する場合は exit と入力してください\n"
 
-		#変換したいファイル名の指定(Nscripter2)
-		print "タグを登録したいファイルを指定してください："
-		input_filename = gets.strip
-
-		#変換後のファイル名指定(Nscripter2)
-		print "タグ登録後のファイル名を入力してください:"
-		output_filename = gets.strip
+		#変換したいファイル名の指定 & 変換後のファイル名の指定
+		input_filename = GetFilename(input_filename, "タグを登録したいファイルを指定してください：")
+		output_filename = GetFilename(output_filename, "タグ登録後のファイル名を入力してください:")
 
 		# exitが含まれていた場合ループを抜ける
 		if input_filename =~ /exit/ || output_filename =~ /exit/ then
